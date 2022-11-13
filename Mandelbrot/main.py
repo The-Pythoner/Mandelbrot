@@ -73,4 +73,6 @@ while run:
 
 			image = mandelbrot(zoom_center, zoom_scale)
 
+			print(zoom_center[0], str(zoom_center[1])+"i")
+
 pg.quit()
