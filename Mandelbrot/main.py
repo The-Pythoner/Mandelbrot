@@ -10,15 +10,15 @@ center = [-1/4, 0]
 zoom = 1
 n = 32
 
-def f(x, n):
-	result = np.zeros(x.shape)
-	zeros = np.zeros(x.shape)
+def f(c, n):
+	result = np.zeros(c.shape)
+	zeros = np.zeros(c.shape)
 
 	for i in range(n):
-		zeros = f1(zeros, x)
+		zeros = f1(zeros, c)
 
 		result[abs(zeros) > 256] = i
-		x[abs(zeros) > 256] = 0
+		c[abs(zeros) > 256] = 0
 
 	return result
 
@@ -66,6 +66,8 @@ while run:
 			center = [(event.pos[0]-600)/300/zoom+center[0], (event.pos[1]-300)/300/zoom+center[1]]
 			zoom *= 4
 			n += 4
+
+			print(center)
 
 			image = mandelbrot(center, zoom, n)
 
