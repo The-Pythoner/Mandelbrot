@@ -8,17 +8,17 @@ filename = "mandelbrot.jpg"
 
 center = [-1/4, 0]
 zoom = 1
-n = 32
+n = 48
 
 def f(c, n):
 	result = np.zeros(c.shape)
-	zeros = np.zeros(c.shape)
+	x = np.zeros(c.shape)
 
 	for i in range(n):
-		zeros = f1(zeros, c)
+		x = f1(x, c)
 
-		result[abs(zeros) > 256] = i
-		c[abs(zeros) > 256] = 0
+		result[abs(x) > 256] = i
+		x[result != 0] = 0
 
 	return result
 
@@ -35,7 +35,7 @@ def color(array, n):
 	return result
 
 def mandelbrot(center, zoom, n):
-	array_real = np.concatenate((np.linspace(-1/zoom*2+center[0], 1/zoom*2+center[0], 1200).reshape((1200, 1)), np.ones((1200, 1))), axis=1)
+	array_real = np.concatenate((np.linspace(-2/zoom+center[0], 2/zoom+center[0], 1200).reshape((1200, 1)), np.ones((1200, 1))), axis=1)
 	array_imag = np.concatenate((np.ones((600, 1)), np.linspace(-1/zoom+center[1], 1/zoom+center[1], 600, dtype=np.complex64).reshape((600, 1))*1j), axis=1)
 
 	array = np.dot(array_imag, array_real.T)
@@ -65,7 +65,7 @@ while run:
 		elif event.type == pg.MOUSEBUTTONUP:
 			center = [(event.pos[0]-600)/300/zoom+center[0], (event.pos[1]-300)/300/zoom+center[1]]
 			zoom *= 4
-			n += 4
+			n += 6
 
 			print(center)
 
